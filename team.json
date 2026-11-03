@@ -1,0 +1,11 @@
+{
+  "team_number": "T0099",
+  "group_lead": { "name": "Sayed Al-Aman Zaidi", "enrollment_no": "2501010416", "github": "amaan1114" },
+  "members": [
+    { "name": "Aryaman Sharma", "enrollment_no": "2501010592", "github": "1203Arya" },
+    { "name": "Utkarsh Vashist", "enrollment_no": "2501010588", "github": "3utkarsh" },
+    { "name": "Ayan Ahmad", "enrollment_no": "2501010620", "github": "ayanahmad77" }
+  ],
+  "postgres_version": "",
+  "laptop_used_for_benchmarks": ""
+}

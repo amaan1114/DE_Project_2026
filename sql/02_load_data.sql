@@ -1,0 +1,12 @@
+\copy cities FROM 'cities.csv' WITH (FORMAT csv, HEADER true);
+\copy builders FROM 'builders.csv' WITH (FORMAT csv, HEADER true);
+\copy amenities FROM 'amenities.csv' WITH (FORMAT csv, HEADER true);
+\copy users FROM 'users.csv' WITH (FORMAT csv, HEADER true);
+\copy localities FROM 'localities.csv' WITH (FORMAT csv, HEADER true);
+\copy projects FROM 'projects.csv' WITH (FORMAT csv, HEADER true);
+\copy project_amenities FROM 'project_amenities.csv' WITH (FORMAT csv, HEADER true);
+\copy properties FROM 'properties.csv' WITH (FORMAT csv, HEADER true);
+\copy enquiries FROM 'enquiries.csv' WITH (FORMAT csv, HEADER true);
+\copy shortlists FROM 'shortlists.csv' WITH (FORMAT csv, HEADER true);
+\copy site_visits FROM 'site_visits.csv' WITH (FORMAT csv, HEADER true);
+\copy price_changes FROM 'price_changes.csv' WITH (FORMAT csv, HEADER true);

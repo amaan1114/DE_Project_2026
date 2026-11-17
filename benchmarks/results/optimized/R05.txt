@@ -1,0 +1,42 @@
+=== R05 run 1 ===
+Limit  (cost=41.57..338.21 rows=87 width=30) (actual time=0.966..1.458 rows=200 loops=1)
+  Buffers: shared hit=187 read=7
+  ->  Bitmap Heap Scan on properties  (cost=41.57..338.21 rows=87 width=30) (actual time=0.965..1.439 rows=200 loops=1)
+        Recheck Cond: ((latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65) AND ((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'RENT'::text))
+        Heap Blocks: exact=187
+        Buffers: shared hit=187 read=7
+        ->  Bitmap Index Scan on idx_properties_lat_lng  (cost=0.00..41.55 rows=87 width=0) (actual time=0.884..0.884 rows=731 loops=1)
+              Index Cond: ((latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65))
+              Buffers: shared read=7
+Planning:
+  Buffers: shared hit=226
+Planning Time: 1.530 ms
+Execution Time: 1.503 ms
+=== R05 run 2 ===
+Limit  (cost=41.57..338.21 rows=87 width=30) (actual time=0.325..1.095 rows=200 loops=1)
+  Buffers: shared hit=194
+  ->  Bitmap Heap Scan on properties  (cost=41.57..338.21 rows=87 width=30) (actual time=0.325..1.077 rows=200 loops=1)
+        Recheck Cond: ((latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65) AND ((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'RENT'::text))
+        Heap Blocks: exact=187
+        Buffers: shared hit=194
+        ->  Bitmap Index Scan on idx_properties_lat_lng  (cost=0.00..41.55 rows=87 width=0) (actual time=0.242..0.243 rows=731 loops=1)
+              Index Cond: ((latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65))
+              Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=226
+Planning Time: 1.487 ms
+Execution Time: 1.147 ms
+=== R05 run 3 ===
+Limit  (cost=41.57..338.21 rows=87 width=30) (actual time=0.331..1.097 rows=200 loops=1)
+  Buffers: shared hit=194
+  ->  Bitmap Heap Scan on properties  (cost=41.57..338.21 rows=87 width=30) (actual time=0.330..1.080 rows=200 loops=1)
+        Recheck Cond: ((latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65) AND ((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'RENT'::text))
+        Heap Blocks: exact=187
+        Buffers: shared hit=194
+        ->  Bitmap Index Scan on idx_properties_lat_lng  (cost=0.00..41.55 rows=87 width=0) (actual time=0.243..0.243 rows=731 loops=1)
+              Index Cond: ((latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65))
+              Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=226
+Planning Time: 1.464 ms
+Execution Time: 1.138 ms

@@ -1,0 +1,48 @@
+=== W04 run 1 ===
+Update on properties  (cost=416.11..3394.54 rows=0 width=0) (actual time=955.978..955.979 rows=0 loops=1)
+  Buffers: shared hit=354458 read=700 dirtied=3946 written=756
+  ->  Bitmap Heap Scan on properties  (cost=416.11..3394.54 rows=28794 width=64) (actual time=1.824..12.870 rows=14440 loops=1)
+        Recheck Cond: ((status)::text = 'ACTIVE'::text)
+        Filter: (posted_at < ('2026-07-01 00:00:00+05:30'::timestamp with time zone - '120 days'::interval))
+        Rows Removed by Filter: 22379
+        Heap Blocks: exact=2333
+        Buffers: shared hit=2366
+        ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..408.91 rows=36882 width=0) (actual time=1.445..1.445 rows=36825 loops=1)
+              Index Cond: ((status)::text = 'ACTIVE'::text)
+              Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=208
+Planning Time: 1.618 ms
+Execution Time: 956.157 ms
+=== W04 run 2 ===
+Update on properties  (cost=466.05..3800.68 rows=0 width=0) (actual time=419.760..419.764 rows=0 loops=1)
+  Buffers: shared hit=367404 read=2 dirtied=637 written=633
+  ->  Bitmap Heap Scan on properties  (cost=466.05..3800.68 rows=32237 width=64) (actual time=0.671..9.542 rows=14440 loops=1)
+        Recheck Cond: ((status)::text = 'ACTIVE'::text)
+        Filter: (posted_at < ('2026-07-01 00:00:00+05:30'::timestamp with time zone - '120 days'::interval))
+        Rows Removed by Filter: 22379
+        Heap Blocks: exact=2333
+        Buffers: shared hit=2366
+        ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..457.99 rows=41293 width=0) (actual time=0.513..0.513 rows=36825 loops=1)
+              Index Cond: ((status)::text = 'ACTIVE'::text)
+              Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=208
+Planning Time: 0.389 ms
+Execution Time: 419.806 ms
+=== W04 run 3 ===
+Update on properties  (cost=512.12..4204.22 rows=0 width=0) (actual time=263.925..263.929 rows=0 loops=1)
+  Buffers: shared hit=364315 dirtied=318 written=318
+  ->  Bitmap Heap Scan on properties  (cost=512.12..4204.22 rows=35693 width=64) (actual time=0.655..9.623 rows=14440 loops=1)
+        Recheck Cond: ((status)::text = 'ACTIVE'::text)
+        Filter: (posted_at < ('2026-07-01 00:00:00+05:30'::timestamp with time zone - '120 days'::interval))
+        Rows Removed by Filter: 22379
+        Heap Blocks: exact=2333
+        Buffers: shared hit=2366
+        ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..503.19 rows=45720 width=0) (actual time=0.499..0.499 rows=36825 loops=1)
+              Index Cond: ((status)::text = 'ACTIVE'::text)
+              Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=208
+Planning Time: 0.396 ms
+Execution Time: 263.975 ms

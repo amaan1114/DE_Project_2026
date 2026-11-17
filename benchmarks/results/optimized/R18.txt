@@ -1,0 +1,66 @@
+=== R18 run 1 ===
+Sort  (cost=4144.25..4154.00 rows=3900 width=28) (actual time=12.107..12.111 rows=60 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2369
+  ->  HashAggregate  (cost=3765.38..3911.63 rows=3900 width=28) (actual time=9.658..12.076 rows=60 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Batches: 1  Memory Usage: 4881kB
+        Rows Removed by Filter: 36699
+        Buffers: shared hit=2366
+        ->  Bitmap Heap Scan on properties  (cost=418.13..3212.15 rows=36882 width=20) (actual time=0.677..3.755 rows=36819 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Heap Blocks: exact=2333
+              Buffers: shared hit=2366
+              ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..408.91 rows=36882 width=0) (actual time=0.520..0.520 rows=36819 loops=1)
+                    Index Cond: ((status)::text = 'ACTIVE'::text)
+                    Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=281
+Planning Time: 0.404 ms
+Execution Time: 12.178 ms
+=== R18 run 2 ===
+Sort  (cost=4144.25..4154.00 rows=3900 width=28) (actual time=11.973..11.979 rows=60 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2369
+  ->  HashAggregate  (cost=3765.38..3911.63 rows=3900 width=28) (actual time=9.551..11.960 rows=60 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Batches: 1  Memory Usage: 4881kB
+        Rows Removed by Filter: 36699
+        Buffers: shared hit=2366
+        ->  Bitmap Heap Scan on properties  (cost=418.13..3212.15 rows=36882 width=20) (actual time=0.640..3.768 rows=36819 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Heap Blocks: exact=2333
+              Buffers: shared hit=2366
+              ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..408.91 rows=36882 width=0) (actual time=0.488..0.489 rows=36819 loops=1)
+                    Index Cond: ((status)::text = 'ACTIVE'::text)
+                    Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=281
+Planning Time: 0.410 ms
+Execution Time: 12.035 ms
+=== R18 run 3 ===
+Sort  (cost=4144.25..4154.00 rows=3900 width=28) (actual time=12.107..12.112 rows=60 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2369
+  ->  HashAggregate  (cost=3765.38..3911.63 rows=3900 width=28) (actual time=9.880..12.095 rows=60 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Batches: 1  Memory Usage: 4881kB
+        Rows Removed by Filter: 36699
+        Buffers: shared hit=2366
+        ->  Bitmap Heap Scan on properties  (cost=418.13..3212.15 rows=36882 width=20) (actual time=0.667..3.989 rows=36819 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Heap Blocks: exact=2333
+              Buffers: shared hit=2366
+              ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..408.91 rows=36882 width=0) (actual time=0.513..0.514 rows=36819 loops=1)
+                    Index Cond: ((status)::text = 'ACTIVE'::text)
+                    Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=281
+Planning Time: 0.413 ms
+Execution Time: 12.189 ms

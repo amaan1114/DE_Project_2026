@@ -1,0 +1,120 @@
+=== R09 run 1 ===
+Limit  (cost=1391.57..1391.69 rows=50 width=14) (actual time=8.436..8.450 rows=50 loops=1)
+  Buffers: shared hit=3332
+  ->  Sort  (cost=1391.57..1391.85 rows=113 width=14) (actual time=8.435..8.440 rows=50 loops=1)
+        Sort Key: p.price
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=3332
+        ->  Nested Loop  (cost=134.78..1387.81 rows=113 width=14) (actual time=1.591..8.206 rows=999 loops=1)
+              Buffers: shared hit=3329
+              ->  HashAggregate  (cost=130.03..145.03 rows=6 width=4) (actual time=1.498..1.646 rows=58 loops=1)
+                    Group Key: pa.project_id
+                    Filter: (count(*) = 3)
+                    Batches: 1  Memory Usage: 129kB
+                    Rows Removed by Filter: 844
+                    Buffers: shared hit=32
+                    ->  Hash Join  (cost=1.24..123.22 rows=1361 width=4) (actual time=0.037..1.225 rows=1329 loops=1)
+                          Hash Cond: (pa.amenity_id = a.amenity_id)
+                          Buffers: shared hit=32
+                          ->  Seq Scan on project_amenities pa  (cost=0.00..99.06 rows=6806 width=8) (actual time=0.012..0.534 rows=6806 loops=1)
+                                Buffers: shared hit=31
+                          ->  Hash  (cost=1.21..1.21 rows=3 width=4) (actual time=0.013..0.014 rows=3 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on amenities a  (cost=0.00..1.21 rows=3 width=4) (actual time=0.005..0.008 rows=3 loops=1)
+                                      Filter: ((amenity_name)::text = ANY ('{Gym,"Swimming Pool","Power Backup"}'::text[]))
+                                      Rows Removed by Filter: 12
+                                      Buffers: shared hit=1
+              ->  Bitmap Heap Scan on properties p  (cost=4.75..206.94 rows=19 width=14) (actual time=0.023..0.111 rows=17 loops=58)
+                    Recheck Cond: (project_id = pa.project_id)
+                    Filter: ((status)::text = 'ACTIVE'::text)
+                    Rows Removed by Filter: 38
+                    Heap Blocks: exact=3181
+                    Buffers: shared hit=3297
+                    ->  Bitmap Index Scan on idx_properties_project_id  (cost=0.00..4.75 rows=61 width=0) (actual time=0.007..0.007 rows=56 loops=58)
+                          Index Cond: (project_id = pa.project_id)
+                          Buffers: shared hit=116
+Planning:
+  Buffers: shared hit=387
+Planning Time: 1.784 ms
+Execution Time: 8.549 ms
+=== R09 run 2 ===
+Limit  (cost=1391.57..1391.69 rows=50 width=14) (actual time=7.962..7.974 rows=50 loops=1)
+  Buffers: shared hit=3332
+  ->  Sort  (cost=1391.57..1391.85 rows=113 width=14) (actual time=7.960..7.965 rows=50 loops=1)
+        Sort Key: p.price
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=3332
+        ->  Nested Loop  (cost=134.78..1387.81 rows=113 width=14) (actual time=1.439..7.707 rows=999 loops=1)
+              Buffers: shared hit=3329
+              ->  HashAggregate  (cost=130.03..145.03 rows=6 width=4) (actual time=1.338..1.432 rows=58 loops=1)
+                    Group Key: pa.project_id
+                    Filter: (count(*) = 3)
+                    Batches: 1  Memory Usage: 129kB
+                    Rows Removed by Filter: 844
+                    Buffers: shared hit=32
+                    ->  Hash Join  (cost=1.24..123.22 rows=1361 width=4) (actual time=0.030..1.088 rows=1329 loops=1)
+                          Hash Cond: (pa.amenity_id = a.amenity_id)
+                          Buffers: shared hit=32
+                          ->  Seq Scan on project_amenities pa  (cost=0.00..99.06 rows=6806 width=8) (actual time=0.009..0.488 rows=6806 loops=1)
+                                Buffers: shared hit=31
+                          ->  Hash  (cost=1.21..1.21 rows=3 width=4) (actual time=0.011..0.011 rows=3 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on amenities a  (cost=0.00..1.21 rows=3 width=4) (actual time=0.004..0.007 rows=3 loops=1)
+                                      Filter: ((amenity_name)::text = ANY ('{Gym,"Swimming Pool","Power Backup"}'::text[]))
+                                      Rows Removed by Filter: 12
+                                      Buffers: shared hit=1
+              ->  Bitmap Heap Scan on properties p  (cost=4.75..206.94 rows=19 width=14) (actual time=0.022..0.105 rows=17 loops=58)
+                    Recheck Cond: (project_id = pa.project_id)
+                    Filter: ((status)::text = 'ACTIVE'::text)
+                    Rows Removed by Filter: 38
+                    Heap Blocks: exact=3181
+                    Buffers: shared hit=3297
+                    ->  Bitmap Index Scan on idx_properties_project_id  (cost=0.00..4.75 rows=61 width=0) (actual time=0.006..0.006 rows=56 loops=58)
+                          Index Cond: (project_id = pa.project_id)
+                          Buffers: shared hit=116
+Planning:
+  Buffers: shared hit=387
+Planning Time: 1.762 ms
+Execution Time: 8.064 ms
+=== R09 run 3 ===
+Limit  (cost=1391.57..1391.69 rows=50 width=14) (actual time=5.364..5.375 rows=50 loops=1)
+  Buffers: shared hit=3332
+  ->  Sort  (cost=1391.57..1391.85 rows=113 width=14) (actual time=5.363..5.367 rows=50 loops=1)
+        Sort Key: p.price
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=3332
+        ->  Nested Loop  (cost=134.78..1387.81 rows=113 width=14) (actual time=1.298..5.119 rows=999 loops=1)
+              Buffers: shared hit=3329
+              ->  HashAggregate  (cost=130.03..145.03 rows=6 width=4) (actual time=1.233..1.324 rows=58 loops=1)
+                    Group Key: pa.project_id
+                    Filter: (count(*) = 3)
+                    Batches: 1  Memory Usage: 129kB
+                    Rows Removed by Filter: 844
+                    Buffers: shared hit=32
+                    ->  Hash Join  (cost=1.24..123.22 rows=1361 width=4) (actual time=0.032..0.999 rows=1329 loops=1)
+                          Hash Cond: (pa.amenity_id = a.amenity_id)
+                          Buffers: shared hit=32
+                          ->  Seq Scan on project_amenities pa  (cost=0.00..99.06 rows=6806 width=8) (actual time=0.003..0.385 rows=6806 loops=1)
+                                Buffers: shared hit=31
+                          ->  Hash  (cost=1.21..1.21 rows=3 width=4) (actual time=0.005..0.006 rows=3 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on amenities a  (cost=0.00..1.21 rows=3 width=4) (actual time=0.002..0.003 rows=3 loops=1)
+                                      Filter: ((amenity_name)::text = ANY ('{Gym,"Swimming Pool","Power Backup"}'::text[]))
+                                      Rows Removed by Filter: 12
+                                      Buffers: shared hit=1
+              ->  Bitmap Heap Scan on properties p  (cost=4.75..206.94 rows=19 width=14) (actual time=0.016..0.063 rows=17 loops=58)
+                    Recheck Cond: (project_id = pa.project_id)
+                    Filter: ((status)::text = 'ACTIVE'::text)
+                    Rows Removed by Filter: 38
+                    Heap Blocks: exact=3181
+                    Buffers: shared hit=3297
+                    ->  Bitmap Index Scan on idx_properties_project_id  (cost=0.00..4.75 rows=61 width=0) (actual time=0.004..0.004 rows=56 loops=58)
+                          Index Cond: (project_id = pa.project_id)
+                          Buffers: shared hit=116
+Planning:
+  Buffers: shared hit=387
+Planning Time: 0.578 ms
+Execution Time: 5.426 ms

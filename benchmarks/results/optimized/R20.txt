@@ -1,0 +1,39 @@
+=== R20 run 1 ===
+WindowAgg  (cost=2.03..317.08 rows=547 width=44) (actual time=0.191..1.663 rows=30 loops=1)
+  Buffers: shared hit=145 read=6
+  ->  GroupAggregate  (cost=0.29..308.87 rows=547 width=12) (actual time=0.149..1.647 rows=30 loops=1)
+        Group Key: (properties.posted_at)::date
+        Buffers: shared hit=145 read=6
+        ->  Index Scan using idx_properties_posted_date on properties  (cost=0.29..273.47 rows=5712 width=4) (actual time=0.105..1.483 rows=6600 loops=1)
+              Index Cond: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+              Buffers: shared hit=145 read=6
+Planning:
+  Buffers: shared hit=248 read=2
+Planning Time: 0.658 ms
+Execution Time: 1.693 ms
+=== R20 run 2 ===
+WindowAgg  (cost=2.03..317.08 rows=547 width=44) (actual time=0.145..1.577 rows=30 loops=1)
+  Buffers: shared hit=151
+  ->  GroupAggregate  (cost=0.29..308.87 rows=547 width=12) (actual time=0.076..1.557 rows=30 loops=1)
+        Group Key: (properties.posted_at)::date
+        Buffers: shared hit=151
+        ->  Index Scan using idx_properties_posted_date on properties  (cost=0.29..273.47 rows=5712 width=4) (actual time=0.008..1.332 rows=6600 loops=1)
+              Index Cond: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+              Buffers: shared hit=151
+Planning:
+  Buffers: shared hit=250
+Planning Time: 0.461 ms
+Execution Time: 1.618 ms
+=== R20 run 3 ===
+WindowAgg  (cost=2.03..317.08 rows=547 width=44) (actual time=0.140..1.084 rows=30 loops=1)
+  Buffers: shared hit=151
+  ->  GroupAggregate  (cost=0.29..308.87 rows=547 width=12) (actual time=0.076..1.071 rows=30 loops=1)
+        Group Key: (properties.posted_at)::date
+        Buffers: shared hit=151
+        ->  Index Scan using idx_properties_posted_date on properties  (cost=0.29..273.47 rows=5712 width=4) (actual time=0.008..0.923 rows=6600 loops=1)
+              Index Cond: (((posted_at)::date >= '2026-06-01'::date) AND ((posted_at)::date <= '2026-06-30'::date))
+              Buffers: shared hit=151
+Planning:
+  Buffers: shared hit=250
+Planning Time: 0.391 ms
+Execution Time: 1.124 ms

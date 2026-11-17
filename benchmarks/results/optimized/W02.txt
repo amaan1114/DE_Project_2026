@@ -1,0 +1,66 @@
+=== W02 run 1 ===
+Update on properties  (cost=43.01..51.04 rows=0 width=0) (actual time=0.587..0.589 rows=0 loops=1)
+  Buffers: shared hit=83 read=3 dirtied=7
+  InitPlan 1
+    ->  Aggregate  (cost=42.58..42.59 rows=1 width=4) (actual time=0.064..0.064 rows=1 loops=1)
+          Buffers: shared hit=37
+          ->  Bitmap Heap Scan on properties properties_1  (cost=4.37..42.58 rows=2 width=4) (actual time=0.040..0.062 rows=4 loops=1)
+                Recheck Cond: (listed_by = 1033)
+                Filter: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'RENT'::text))
+                Rows Removed by Filter: 30
+                Heap Blocks: exact=35
+                Buffers: shared hit=37
+                ->  Bitmap Index Scan on idx_properties_listed_by  (cost=0.00..4.37 rows=10 width=0) (actual time=0.008..0.008 rows=37 loops=1)
+                      Index Cond: (listed_by = 1033)
+                      Buffers: shared hit=2
+  ->  Index Scan using properties_pkey on properties  (cost=0.42..8.44 rows=1 width=24) (actual time=0.075..0.075 rows=1 loops=1)
+        Index Cond: (property_id = (InitPlan 1).col1)
+        Buffers: shared hit=41
+Planning:
+  Buffers: shared hit=262
+Planning Time: 0.443 ms
+Execution Time: 0.655 ms
+=== W02 run 2 ===
+Update on properties  (cost=43.01..51.04 rows=0 width=0) (actual time=0.191..0.193 rows=0 loops=1)
+  Buffers: shared hit=88
+  InitPlan 1
+    ->  Aggregate  (cost=42.58..42.59 rows=1 width=4) (actual time=0.057..0.057 rows=1 loops=1)
+          Buffers: shared hit=37
+          ->  Bitmap Heap Scan on properties properties_1  (cost=4.37..42.58 rows=2 width=4) (actual time=0.035..0.056 rows=4 loops=1)
+                Recheck Cond: (listed_by = 1033)
+                Filter: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'RENT'::text))
+                Rows Removed by Filter: 30
+                Heap Blocks: exact=35
+                Buffers: shared hit=37
+                ->  Bitmap Index Scan on idx_properties_listed_by  (cost=0.00..4.37 rows=10 width=0) (actual time=0.006..0.006 rows=38 loops=1)
+                      Index Cond: (listed_by = 1033)
+                      Buffers: shared hit=2
+  ->  Index Scan using properties_pkey on properties  (cost=0.42..8.44 rows=1 width=24) (actual time=0.065..0.068 rows=1 loops=1)
+        Index Cond: (property_id = (InitPlan 1).col1)
+        Buffers: shared hit=43
+Planning:
+  Buffers: shared hit=262
+Planning Time: 0.413 ms
+Execution Time: 0.256 ms
+=== W02 run 3 ===
+Update on properties  (cost=43.01..51.04 rows=0 width=0) (actual time=0.271..0.274 rows=0 loops=1)
+  Buffers: shared hit=88
+  InitPlan 1
+    ->  Aggregate  (cost=42.58..42.59 rows=1 width=4) (actual time=0.091..0.091 rows=1 loops=1)
+          Buffers: shared hit=37
+          ->  Bitmap Heap Scan on properties properties_1  (cost=4.37..42.58 rows=2 width=4) (actual time=0.056..0.089 rows=4 loops=1)
+                Recheck Cond: (listed_by = 1033)
+                Filter: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'RENT'::text))
+                Rows Removed by Filter: 30
+                Heap Blocks: exact=35
+                Buffers: shared hit=37
+                ->  Bitmap Index Scan on idx_properties_listed_by  (cost=0.00..4.37 rows=10 width=0) (actual time=0.010..0.011 rows=39 loops=1)
+                      Index Cond: (listed_by = 1033)
+                      Buffers: shared hit=2
+  ->  Index Scan using properties_pkey on properties  (cost=0.42..8.44 rows=1 width=24) (actual time=0.104..0.107 rows=1 loops=1)
+        Index Cond: (property_id = (InitPlan 1).col1)
+        Buffers: shared hit=43
+Planning:
+  Buffers: shared hit=262
+Planning Time: 0.486 ms
+Execution Time: 0.372 ms

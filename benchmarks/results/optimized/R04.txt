@@ -1,0 +1,81 @@
+=== R04 run 1 ===
+GroupAggregate  (cost=2034.70..2034.77 rows=2 width=48) (actual time=4.548..4.599 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=984 read=1
+  ->  Sort  (cost=2034.70..2034.71 rows=2 width=18) (actual time=4.514..4.524 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 30kB
+        Buffers: shared hit=984 read=1
+        ->  Nested Loop  (cost=17.30..2034.69 rows=2 width=18) (actual time=3.181..4.465 rows=143 loops=1)
+              Buffers: shared hit=981 read=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=4) (actual time=0.011..0.021 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on properties p  (cost=17.30..2032.42 rows=2 width=22) (actual time=3.167..4.409 rows=143 loops=1)
+                    Recheck Cond: (l.locality_id = locality_id)
+                    Filter: (((listing_type)::text = 'SALE'::text) AND ((property_type)::text = 'APARTMENT'::text) AND (EXTRACT(year FROM posted_at) = '2026'::numeric))
+                    Rows Removed by Filter: 1117
+                    Heap Blocks: exact=978
+                    Buffers: shared hit=980 read=1
+                    ->  Bitmap Index Scan on idx_properties_locality_id  (cost=0.00..17.30 rows=1201 width=0) (actual time=0.207..0.207 rows=1260 loops=1)
+                          Index Cond: (locality_id = l.locality_id)
+                          Buffers: shared hit=2 read=1
+Planning:
+  Buffers: shared hit=421
+Planning Time: 2.187 ms
+Execution Time: 4.676 ms
+=== R04 run 2 ===
+GroupAggregate  (cost=2034.70..2034.77 rows=2 width=48) (actual time=3.396..3.446 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=985
+  ->  Sort  (cost=2034.70..2034.71 rows=2 width=18) (actual time=3.366..3.374 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 30kB
+        Buffers: shared hit=985
+        ->  Nested Loop  (cost=17.30..2034.69 rows=2 width=18) (actual time=2.267..3.322 rows=143 loops=1)
+              Buffers: shared hit=982
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=4) (actual time=0.010..0.022 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on properties p  (cost=17.30..2032.42 rows=2 width=22) (actual time=2.255..3.264 rows=143 loops=1)
+                    Recheck Cond: (l.locality_id = locality_id)
+                    Filter: (((listing_type)::text = 'SALE'::text) AND ((property_type)::text = 'APARTMENT'::text) AND (EXTRACT(year FROM posted_at) = '2026'::numeric))
+                    Rows Removed by Filter: 1117
+                    Heap Blocks: exact=978
+                    Buffers: shared hit=981
+                    ->  Bitmap Index Scan on idx_properties_locality_id  (cost=0.00..17.30 rows=1201 width=0) (actual time=0.179..0.179 rows=1260 loops=1)
+                          Index Cond: (locality_id = l.locality_id)
+                          Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=421
+Planning Time: 1.971 ms
+Execution Time: 3.515 ms
+=== R04 run 3 ===
+GroupAggregate  (cost=2034.70..2034.77 rows=2 width=48) (actual time=4.229..4.274 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=985
+  ->  Sort  (cost=2034.70..2034.71 rows=2 width=18) (actual time=4.206..4.214 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 30kB
+        Buffers: shared hit=985
+        ->  Nested Loop  (cost=17.30..2034.69 rows=2 width=18) (actual time=2.903..4.163 rows=143 loops=1)
+              Buffers: shared hit=982
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=4) (actual time=0.008..0.017 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on properties p  (cost=17.30..2032.42 rows=2 width=22) (actual time=2.890..4.113 rows=143 loops=1)
+                    Recheck Cond: (l.locality_id = locality_id)
+                    Filter: (((listing_type)::text = 'SALE'::text) AND ((property_type)::text = 'APARTMENT'::text) AND (EXTRACT(year FROM posted_at) = '2026'::numeric))
+                    Rows Removed by Filter: 1117
+                    Heap Blocks: exact=978
+                    Buffers: shared hit=981
+                    ->  Bitmap Index Scan on idx_properties_locality_id  (cost=0.00..17.30 rows=1201 width=0) (actual time=0.157..0.158 rows=1260 loops=1)
+                          Index Cond: (locality_id = l.locality_id)
+                          Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=421
+Planning Time: 1.869 ms
+Execution Time: 4.341 ms

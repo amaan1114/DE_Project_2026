@@ -1,0 +1,39 @@
+=== R13 run 1 ===
+Nested Loop Anti Join  (cost=0.29..451.98 rows=120 width=37) (actual time=0.745..0.813 rows=120 loops=1)
+  Buffers: shared hit=2417
+  ->  Seq Scan on projects pj  (cost=0.00..28.00 rows=1200 width=37) (actual time=0.003..0.053 rows=1200 loops=1)
+        Buffers: shared hit=16
+  ->  Index Only Scan using idx_properties_project_id on properties p  (cost=0.29..1.71 rows=61 width=4) (actual time=0.001..0.001 rows=1 loops=1200)
+        Index Cond: (project_id = pj.project_id)
+        Heap Fetches: 0
+        Buffers: shared hit=2401
+Planning:
+  Buffers: shared hit=404
+Planning Time: 0.619 ms
+Execution Time: 0.839 ms
+=== R13 run 2 ===
+Nested Loop Anti Join  (cost=0.29..451.98 rows=120 width=37) (actual time=0.771..0.847 rows=120 loops=1)
+  Buffers: shared hit=2417
+  ->  Seq Scan on projects pj  (cost=0.00..28.00 rows=1200 width=37) (actual time=0.002..0.057 rows=1200 loops=1)
+        Buffers: shared hit=16
+  ->  Index Only Scan using idx_properties_project_id on properties p  (cost=0.29..1.71 rows=61 width=4) (actual time=0.001..0.001 rows=1 loops=1200)
+        Index Cond: (project_id = pj.project_id)
+        Heap Fetches: 0
+        Buffers: shared hit=2401
+Planning:
+  Buffers: shared hit=404
+Planning Time: 0.535 ms
+Execution Time: 0.871 ms
+=== R13 run 3 ===
+Nested Loop Anti Join  (cost=0.29..451.98 rows=120 width=37) (actual time=1.092..1.184 rows=120 loops=1)
+  Buffers: shared hit=2417
+  ->  Seq Scan on projects pj  (cost=0.00..28.00 rows=1200 width=37) (actual time=0.002..0.078 rows=1200 loops=1)
+        Buffers: shared hit=16
+  ->  Index Only Scan using idx_properties_project_id on properties p  (cost=0.29..1.71 rows=61 width=4) (actual time=0.001..0.001 rows=1 loops=1200)
+        Index Cond: (project_id = pj.project_id)
+        Heap Fetches: 0
+        Buffers: shared hit=2401
+Planning:
+  Buffers: shared hit=404
+Planning Time: 0.539 ms
+Execution Time: 1.210 ms

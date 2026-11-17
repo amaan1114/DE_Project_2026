@@ -1,0 +1,123 @@
+=== R25 run 1 ===
+GroupAggregate  (cost=8705.58..168294979.21 rows=10 width=20) (actual time=51.495..63.076 rows=10.00 loops=1)
+  Group Key: l.city_id
+  Buffers: shared hit=3493
+  ->  Gather Merge  (cost=8705.58..16858.12 rows=69999 width=12) (actual time=30.874..36.372 rows=69999.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2589
+        ->  Sort  (cost=7705.56..7778.47 rows=29166 width=12) (actual time=27.219..27.905 rows=23333.00 loops=3)
+              Sort Key: l.city_id
+              Sort Method: quicksort  Memory: 1512kB
+              Buffers: shared hit=2589
+              Worker 0:  Sort Method: quicksort  Memory: 1482kB
+              Worker 1:  Sort Method: quicksort  Memory: 1499kB
+              ->  Hash Join  (cost=3968.58..5542.61 rows=29166 width=12) (actual time=12.104..24.858 rows=23333.00 loops=3)
+                    Hash Cond: (p.locality_id = l.locality_id)
+                    Buffers: shared hit=2575
+                    ->  Parallel Hash Join  (cost=3965.33..5459.55 rows=29166 width=12) (actual time=12.018..21.436 rows=23333.00 loops=3)
+                          Hash Cond: (s.property_id = p.property_id)
+                          Buffers: shared hit=2572
+                          ->  Parallel Index Only Scan using shortlists_pkey on shortlists s  (cost=0.29..1417.95 rows=29166 width=8) (actual time=0.220..2.121 rows=23333.00 loops=3)
+                                Heap Fetches: 0
+                                Index Searches: 1
+                                Buffers: shared hit=196
+                          ->  Parallel Hash  (cost=3082.24..3082.24 rows=70624 width=8) (actual time=11.709..11.710 rows=40020.00 loops=3)
+                                Buckets: 131072  Batches: 1  Memory Usage: 5792kB
+                                Buffers: shared hit=2376
+                                ->  Parallel Seq Scan on properties p  (cost=0.00..3082.24 rows=70624 width=8) (actual time=0.006..6.249 rows=40020.00 loops=3)
+                                      Buffers: shared hit=2376
+                    ->  Hash  (cost=2.00..2.00 rows=100 width=8) (actual time=0.077..0.077 rows=100.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=3
+                          ->  Seq Scan on localities l  (cost=0.00..2.00 rows=100 width=8) (actual time=0.056..0.063 rows=100.00 loops=3)
+                                Buffers: shared hit=3
+  SubPlan 2
+    ->  Seq Scan on enquiries e  (cost=0.00..1904.00 rows=100000 width=8) (actual time=0.014..7.360 rows=100000.00 loops=1)
+          Buffers: shared hit=904
+Planning:
+  Buffers: shared hit=170
+Planning Time: 1.116 ms
+Execution Time: 63.177 ms
+=== R25 run 2 ===
+GroupAggregate  (cost=8705.58..168294979.21 rows=10 width=20) (actual time=31.931..41.671 rows=10.00 loops=1)
+  Group Key: l.city_id
+  Buffers: shared hit=3494
+  ->  Gather Merge  (cost=8705.58..16858.12 rows=69999 width=12) (actual time=15.727..20.273 rows=69999.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2590
+        ->  Sort  (cost=7705.56..7778.47 rows=29166 width=12) (actual time=13.831..14.379 rows=23333.00 loops=3)
+              Sort Key: l.city_id
+              Sort Method: quicksort  Memory: 1465kB
+              Buffers: shared hit=2590
+              Worker 0:  Sort Method: quicksort  Memory: 1493kB
+              Worker 1:  Sort Method: quicksort  Memory: 1534kB
+              ->  Hash Join  (cost=3968.58..5542.61 rows=29166 width=12) (actual time=5.976..12.203 rows=23333.00 loops=3)
+                    Hash Cond: (p.locality_id = l.locality_id)
+                    Buffers: shared hit=2576
+                    ->  Parallel Hash Join  (cost=3965.33..5459.55 rows=29166 width=12) (actual time=5.933..10.185 rows=23333.00 loops=3)
+                          Hash Cond: (s.property_id = p.property_id)
+                          Buffers: shared hit=2573
+                          ->  Parallel Index Only Scan using shortlists_pkey on shortlists s  (cost=0.29..1417.95 rows=29166 width=8) (actual time=0.049..1.144 rows=23333.00 loops=3)
+                                Heap Fetches: 0
+                                Index Searches: 1
+                                Buffers: shared hit=197
+                          ->  Parallel Hash  (cost=3082.24..3082.24 rows=70624 width=8) (actual time=5.823..5.824 rows=40020.00 loops=3)
+                                Buckets: 131072  Batches: 1  Memory Usage: 5760kB
+                                Buffers: shared hit=2376
+                                ->  Parallel Seq Scan on properties p  (cost=0.00..3082.24 rows=70624 width=8) (actual time=0.003..3.175 rows=40020.00 loops=3)
+                                      Buffers: shared hit=2376
+                    ->  Hash  (cost=2.00..2.00 rows=100 width=8) (actual time=0.038..0.038 rows=100.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=3
+                          ->  Seq Scan on localities l  (cost=0.00..2.00 rows=100 width=8) (actual time=0.023..0.029 rows=100.00 loops=3)
+                                Buffers: shared hit=3
+  SubPlan 2
+    ->  Seq Scan on enquiries e  (cost=0.00..1904.00 rows=100000 width=8) (actual time=0.007..5.877 rows=100000.00 loops=1)
+          Buffers: shared hit=904
+Planning:
+  Buffers: shared hit=170
+Planning Time: 0.572 ms
+Execution Time: 41.749 ms
+=== R25 run 3 ===
+GroupAggregate  (cost=8705.58..168294979.21 rows=10 width=20) (actual time=25.408..33.715 rows=10.00 loops=1)
+  Group Key: l.city_id
+  Buffers: shared hit=3493
+  ->  Gather Merge  (cost=8705.58..16858.12 rows=69999 width=12) (actual time=12.901..17.096 rows=69999.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2589
+        ->  Sort  (cost=7705.56..7778.47 rows=29166 width=12) (actual time=11.425..11.944 rows=23333.00 loops=3)
+              Sort Key: l.city_id
+              Sort Method: quicksort  Memory: 1470kB
+              Buffers: shared hit=2589
+              Worker 0:  Sort Method: quicksort  Memory: 1512kB
+              Worker 1:  Sort Method: quicksort  Memory: 1511kB
+              ->  Hash Join  (cost=3968.58..5542.61 rows=29166 width=12) (actual time=5.308..10.207 rows=23333.00 loops=3)
+                    Hash Cond: (p.locality_id = l.locality_id)
+                    Buffers: shared hit=2575
+                    ->  Parallel Hash Join  (cost=3965.33..5459.55 rows=29166 width=12) (actual time=5.275..8.646 rows=23333.00 loops=3)
+                          Hash Cond: (s.property_id = p.property_id)
+                          Buffers: shared hit=2572
+                          ->  Parallel Index Only Scan using shortlists_pkey on shortlists s  (cost=0.29..1417.95 rows=29166 width=8) (actual time=0.038..0.910 rows=23333.00 loops=3)
+                                Heap Fetches: 0
+                                Index Searches: 1
+                                Buffers: shared hit=196
+                          ->  Parallel Hash  (cost=3082.24..3082.24 rows=70624 width=8) (actual time=5.184..5.185 rows=40020.00 loops=3)
+                                Buckets: 131072  Batches: 1  Memory Usage: 5760kB
+                                Buffers: shared hit=2376
+                                ->  Parallel Seq Scan on properties p  (cost=0.00..3082.24 rows=70624 width=8) (actual time=0.003..2.793 rows=40020.00 loops=3)
+                                      Buffers: shared hit=2376
+                    ->  Hash  (cost=2.00..2.00 rows=100 width=8) (actual time=0.029..0.029 rows=100.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=3
+                          ->  Seq Scan on localities l  (cost=0.00..2.00 rows=100 width=8) (actual time=0.018..0.022 rows=100.00 loops=3)
+                                Buffers: shared hit=3
+  SubPlan 2
+    ->  Seq Scan on enquiries e  (cost=0.00..1904.00 rows=100000 width=8) (actual time=0.005..4.296 rows=100000.00 loops=1)
+          Buffers: shared hit=904
+Planning:
+  Buffers: shared hit=170
+Planning Time: 0.414 ms
+Execution Time: 33.773 ms

@@ -1,0 +1,108 @@
+=== R06 run 1 ===
+Sort  (cost=6854.97..6855.00 rows=10 width=38) (actual time=26.554..26.556 rows=34.00 loops=1)
+  Sort Key: (count(DISTINCT e.enquiry_id)) DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=3614
+  ->  GroupAggregate  (cost=6854.61..6854.81 rows=10 width=38) (actual time=26.500..26.531 rows=34.00 loops=1)
+        Group Key: p.property_id
+        Buffers: shared hit=3611
+        ->  Sort  (cost=6854.61..6854.63 rows=10 width=30) (actual time=26.486..26.489 rows=53.00 loops=1)
+              Sort Key: p.property_id, e.enquiry_id
+              Sort Method: quicksort  Memory: 27kB
+              Buffers: shared hit=3611
+              ->  Hash Right Join  (cost=6043.51..6854.44 rows=10 width=30) (actual time=23.499..26.456 rows=53.00 loops=1)
+                    Hash Cond: (v.property_id = p.property_id)
+                    Buffers: shared hit=3608
+                    ->  Seq Scan on site_visits v  (cost=0.00..679.20 rows=35120 width=8) (actual time=0.005..1.581 rows=35120.00 loops=1)
+                          Buffers: shared hit=328
+                    ->  Hash  (cost=6043.39..6043.39 rows=10 width=26) (actual time=23.480..23.480 rows=43.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                          Buffers: shared hit=3280
+                          ->  Hash Right Join  (cost=3876.88..6043.39 rows=10 width=26) (actual time=13.058..23.451 rows=43.00 loops=1)
+                                Hash Cond: (e.property_id = p.property_id)
+                                Buffers: shared hit=3280
+                                ->  Seq Scan on enquiries e  (cost=0.00..1904.00 rows=100000 width=8) (actual time=0.014..5.523 rows=100000.00 loops=1)
+                                      Buffers: shared hit=904
+                                ->  Hash  (cost=3876.75..3876.75 rows=10 width=22) (actual time=13.015..13.015 rows=34.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 10kB
+                                      Buffers: shared hit=2376
+                                      ->  Seq Scan on properties p  (cost=0.00..3876.75 rows=10 width=22) (actual time=0.237..12.987 rows=34.00 loops=1)
+                                            Filter: (listed_by = 1033)
+                                            Rows Removed by Filter: 120026
+                                            Buffers: shared hit=2376
+Planning:
+  Buffers: shared hit=167
+Planning Time: 1.208 ms
+Execution Time: 26.650 ms
+=== R06 run 2 ===
+Sort  (cost=6854.97..6855.00 rows=10 width=38) (actual time=23.396..23.398 rows=34.00 loops=1)
+  Sort Key: (count(DISTINCT e.enquiry_id)) DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=3614
+  ->  GroupAggregate  (cost=6854.61..6854.81 rows=10 width=38) (actual time=23.349..23.379 rows=34.00 loops=1)
+        Group Key: p.property_id
+        Buffers: shared hit=3611
+        ->  Sort  (cost=6854.61..6854.63 rows=10 width=30) (actual time=23.341..23.344 rows=53.00 loops=1)
+              Sort Key: p.property_id, e.enquiry_id
+              Sort Method: quicksort  Memory: 27kB
+              Buffers: shared hit=3611
+              ->  Hash Right Join  (cost=6043.51..6854.44 rows=10 width=30) (actual time=19.926..23.315 rows=53.00 loops=1)
+                    Hash Cond: (v.property_id = p.property_id)
+                    Buffers: shared hit=3608
+                    ->  Seq Scan on site_visits v  (cost=0.00..679.20 rows=35120 width=8) (actual time=0.004..1.802 rows=35120.00 loops=1)
+                          Buffers: shared hit=328
+                    ->  Hash  (cost=6043.39..6043.39 rows=10 width=26) (actual time=19.907..19.908 rows=43.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                          Buffers: shared hit=3280
+                          ->  Hash Right Join  (cost=3876.88..6043.39 rows=10 width=26) (actual time=10.539..19.897 rows=43.00 loops=1)
+                                Hash Cond: (e.property_id = p.property_id)
+                                Buffers: shared hit=3280
+                                ->  Seq Scan on enquiries e  (cost=0.00..1904.00 rows=100000 width=8) (actual time=0.006..5.018 rows=100000.00 loops=1)
+                                      Buffers: shared hit=904
+                                ->  Hash  (cost=3876.75..3876.75 rows=10 width=22) (actual time=10.510..10.510 rows=34.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 10kB
+                                      Buffers: shared hit=2376
+                                      ->  Seq Scan on properties p  (cost=0.00..3876.75 rows=10 width=22) (actual time=0.144..10.489 rows=34.00 loops=1)
+                                            Filter: (listed_by = 1033)
+                                            Rows Removed by Filter: 120026
+                                            Buffers: shared hit=2376
+Planning:
+  Buffers: shared hit=167
+Planning Time: 0.420 ms
+Execution Time: 23.484 ms
+=== R06 run 3 ===
+Sort  (cost=6854.97..6855.00 rows=10 width=38) (actual time=19.308..19.310 rows=34.00 loops=1)
+  Sort Key: (count(DISTINCT e.enquiry_id)) DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=3614
+  ->  GroupAggregate  (cost=6854.61..6854.81 rows=10 width=38) (actual time=19.276..19.294 rows=34.00 loops=1)
+        Group Key: p.property_id
+        Buffers: shared hit=3611
+        ->  Sort  (cost=6854.61..6854.63 rows=10 width=30) (actual time=19.271..19.272 rows=53.00 loops=1)
+              Sort Key: p.property_id, e.enquiry_id
+              Sort Method: quicksort  Memory: 27kB
+              Buffers: shared hit=3611
+              ->  Hash Right Join  (cost=6043.51..6854.44 rows=10 width=30) (actual time=15.904..19.249 rows=53.00 loops=1)
+                    Hash Cond: (v.property_id = p.property_id)
+                    Buffers: shared hit=3608
+                    ->  Seq Scan on site_visits v  (cost=0.00..679.20 rows=35120 width=8) (actual time=0.006..1.785 rows=35120.00 loops=1)
+                          Buffers: shared hit=328
+                    ->  Hash  (cost=6043.39..6043.39 rows=10 width=26) (actual time=15.884..15.885 rows=43.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                          Buffers: shared hit=3280
+                          ->  Hash Right Join  (cost=3876.88..6043.39 rows=10 width=26) (actual time=7.195..15.873 rows=43.00 loops=1)
+                                Hash Cond: (e.property_id = p.property_id)
+                                Buffers: shared hit=3280
+                                ->  Seq Scan on enquiries e  (cost=0.00..1904.00 rows=100000 width=8) (actual time=0.006..4.647 rows=100000.00 loops=1)
+                                      Buffers: shared hit=904
+                                ->  Hash  (cost=3876.75..3876.75 rows=10 width=22) (actual time=7.166..7.166 rows=34.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 10kB
+                                      Buffers: shared hit=2376
+                                      ->  Seq Scan on properties p  (cost=0.00..3876.75 rows=10 width=22) (actual time=0.146..7.157 rows=34.00 loops=1)
+                                            Filter: (listed_by = 1033)
+                                            Rows Removed by Filter: 120026
+                                            Buffers: shared hit=2376
+Planning:
+  Buffers: shared hit=167
+Planning Time: 0.327 ms
+Execution Time: 19.385 ms

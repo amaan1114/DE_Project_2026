@@ -1,0 +1,63 @@
+=== R12 run 1 ===
+Sort  (cost=3901.73..3910.17 rows=3378 width=20) (actual time=23.207..23.389 rows=3853.00 loops=1)
+  Sort Key: e.created_at
+  Sort Method: quicksort  Memory: 247kB
+  Buffers: shared hit=1235
+  ->  Hash Anti Join  (cost=1206.00..3703.74 rows=3378 width=20) (actual time=10.152..22.336 rows=3853.00 loops=1)
+        Hash Cond: ((e.property_id = v.property_id) AND (e.user_id = v.user_id))
+        Buffers: shared hit=1232
+        ->  Seq Scan on enquiries e  (cost=0.00..2404.00 rows=5791 width=20) (actual time=0.015..10.289 rows=5940.00 loops=1)
+              Filter: ((created_at >= '2026-06-01 00:00:00'::timestamp without time zone) AND (created_at < '2026-06-24 00:00:00'::timestamp without time zone))
+              Rows Removed by Filter: 94060
+              Buffers: shared hit=904
+        ->  Hash  (cost=679.20..679.20 rows=35120 width=8) (actual time=10.057..10.058 rows=35120.00 loops=1)
+              Buckets: 65536  Batches: 1  Memory Usage: 1884kB
+              Buffers: shared hit=328
+              ->  Seq Scan on site_visits v  (cost=0.00..679.20 rows=35120 width=8) (actual time=0.008..4.736 rows=35120.00 loops=1)
+                    Buffers: shared hit=328
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.842 ms
+Execution Time: 23.607 ms
+=== R12 run 2 ===
+Sort  (cost=3901.73..3910.17 rows=3378 width=20) (actual time=15.937..16.107 rows=3853.00 loops=1)
+  Sort Key: e.created_at
+  Sort Method: quicksort  Memory: 247kB
+  Buffers: shared hit=1235
+  ->  Hash Anti Join  (cost=1206.00..3703.74 rows=3378 width=20) (actual time=7.162..15.265 rows=3853.00 loops=1)
+        Hash Cond: ((e.property_id = v.property_id) AND (e.user_id = v.user_id))
+        Buffers: shared hit=1232
+        ->  Seq Scan on enquiries e  (cost=0.00..2404.00 rows=5791 width=20) (actual time=0.010..7.147 rows=5940.00 loops=1)
+              Filter: ((created_at >= '2026-06-01 00:00:00'::timestamp without time zone) AND (created_at < '2026-06-24 00:00:00'::timestamp without time zone))
+              Rows Removed by Filter: 94060
+              Buffers: shared hit=904
+        ->  Hash  (cost=679.20..679.20 rows=35120 width=8) (actual time=7.092..7.092 rows=35120.00 loops=1)
+              Buckets: 65536  Batches: 1  Memory Usage: 1884kB
+              Buffers: shared hit=328
+              ->  Seq Scan on site_visits v  (cost=0.00..679.20 rows=35120 width=8) (actual time=0.006..3.254 rows=35120.00 loops=1)
+                    Buffers: shared hit=328
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.627 ms
+Execution Time: 16.328 ms
+=== R12 run 3 ===
+Sort  (cost=3901.73..3910.17 rows=3378 width=20) (actual time=11.723..11.882 rows=3853.00 loops=1)
+  Sort Key: e.created_at
+  Sort Method: quicksort  Memory: 247kB
+  Buffers: shared hit=1235
+  ->  Hash Anti Join  (cost=1206.00..3703.74 rows=3378 width=20) (actual time=6.072..11.135 rows=3853.00 loops=1)
+        Hash Cond: ((e.property_id = v.property_id) AND (e.user_id = v.user_id))
+        Buffers: shared hit=1232
+        ->  Seq Scan on enquiries e  (cost=0.00..2404.00 rows=5791 width=20) (actual time=0.011..4.423 rows=5940.00 loops=1)
+              Filter: ((created_at >= '2026-06-01 00:00:00'::timestamp without time zone) AND (created_at < '2026-06-24 00:00:00'::timestamp without time zone))
+              Rows Removed by Filter: 94060
+              Buffers: shared hit=904
+        ->  Hash  (cost=679.20..679.20 rows=35120 width=8) (actual time=6.007..6.007 rows=35120.00 loops=1)
+              Buckets: 65536  Batches: 1  Memory Usage: 1884kB
+              Buffers: shared hit=328
+              ->  Seq Scan on site_visits v  (cost=0.00..679.20 rows=35120 width=8) (actual time=0.006..2.819 rows=35120.00 loops=1)
+                    Buffers: shared hit=328
+Planning:
+  Buffers: shared hit=204
+Planning Time: 0.637 ms
+Execution Time: 12.080 ms

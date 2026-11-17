@@ -1,0 +1,111 @@
+=== R19 run 1 ===
+Sort  (cost=7052248.45..7052252.54 rows=1636 width=26) (actual time=9412.191..9412.230 rows=1780.00 loops=1)
+  Sort Key: ((SubPlan 1)) DESC
+  Sort Method: quicksort  Memory: 127kB
+  Buffers: shared hit=3220620
+  ->  Hash Join  (cost=2.38..7052161.12 rows=1636 width=26) (actual time=7.131..9411.847 rows=1780.00 loops=1)
+        Hash Cond: (p.locality_id = l.locality_id)
+        Buffers: shared hit=3220617
+        ->  Seq Scan on properties p  (cost=0.00..4176.90 rows=16360 width=14) (actual time=0.005..11.329 rows=16683.00 loops=1)
+              Filter: (((listing_type)::text = 'SALE'::text) AND ((status)::text = 'ACTIVE'::text))
+              Rows Removed by Filter: 103377
+              Buffers: shared hit=2376
+        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.006..0.006 rows=10.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.002..0.004 rows=10.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 1
+          ->  Aggregate  (cost=2154.01..2154.02 rows=1 width=8) (actual time=2.624..2.624 rows=1.00 loops=1780)
+                Buffers: shared hit=1609120
+                ->  Seq Scan on enquiries e  (cost=0.00..2154.00 rows=2 width=0) (actual time=1.676..2.623 rows=0.97 loops=1780)
+                      Filter: (property_id = p.property_id)
+                      Rows Removed by Filter: 99999
+                      Buffers: shared hit=1609120
+        SubPlan 2
+          ->  Aggregate  (cost=2154.01..2154.02 rows=1 width=8) (actual time=2.656..2.656 rows=1.00 loops=1780)
+                Buffers: shared hit=1609120
+                ->  Seq Scan on enquiries e_1  (cost=0.00..2154.00 rows=2 width=8) (actual time=1.686..2.655 rows=0.97 loops=1780)
+                      Filter: (property_id = p.property_id)
+                      Rows Removed by Filter: 99999
+                      Buffers: shared hit=1609120
+Planning:
+  Buffers: shared hit=253
+Planning Time: 0.385 ms
+Execution Time: 9412.548 ms
+=== R19 run 2 ===
+Sort  (cost=7052248.45..7052252.54 rows=1636 width=26) (actual time=9395.570..9395.607 rows=1780.00 loops=1)
+  Sort Key: ((SubPlan 1)) DESC
+  Sort Method: quicksort  Memory: 127kB
+  Buffers: shared hit=3220620
+  ->  Hash Join  (cost=2.38..7052161.12 rows=1636 width=26) (actual time=7.219..9395.295 rows=1780.00 loops=1)
+        Hash Cond: (p.locality_id = l.locality_id)
+        Buffers: shared hit=3220617
+        ->  Seq Scan on properties p  (cost=0.00..4176.90 rows=16360 width=14) (actual time=0.007..11.222 rows=16683.00 loops=1)
+              Filter: (((listing_type)::text = 'SALE'::text) AND ((status)::text = 'ACTIVE'::text))
+              Rows Removed by Filter: 103377
+              Buffers: shared hit=2376
+        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.007..0.007 rows=10.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.002..0.005 rows=10.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 1
+          ->  Aggregate  (cost=2154.01..2154.02 rows=1 width=8) (actual time=2.634..2.634 rows=1.00 loops=1780)
+                Buffers: shared hit=1609120
+                ->  Seq Scan on enquiries e  (cost=0.00..2154.00 rows=2 width=0) (actual time=1.683..2.633 rows=0.97 loops=1780)
+                      Filter: (property_id = p.property_id)
+                      Rows Removed by Filter: 99999
+                      Buffers: shared hit=1609120
+        SubPlan 2
+          ->  Aggregate  (cost=2154.01..2154.02 rows=1 width=8) (actual time=2.637..2.637 rows=1.00 loops=1780)
+                Buffers: shared hit=1609120
+                ->  Seq Scan on enquiries e_1  (cost=0.00..2154.00 rows=2 width=8) (actual time=1.688..2.637 rows=0.97 loops=1780)
+                      Filter: (property_id = p.property_id)
+                      Rows Removed by Filter: 99999
+                      Buffers: shared hit=1609120
+Planning:
+  Buffers: shared hit=253
+Planning Time: 0.483 ms
+Execution Time: 9395.697 ms
+=== R19 run 3 ===
+Sort  (cost=7052248.45..7052252.54 rows=1636 width=26) (actual time=8871.661..8871.696 rows=1780.00 loops=1)
+  Sort Key: ((SubPlan 1)) DESC
+  Sort Method: quicksort  Memory: 127kB
+  Buffers: shared hit=3220620
+  ->  Hash Join  (cost=2.38..7052161.12 rows=1636 width=26) (actual time=7.332..8871.360 rows=1780.00 loops=1)
+        Hash Cond: (p.locality_id = l.locality_id)
+        Buffers: shared hit=3220617
+        ->  Seq Scan on properties p  (cost=0.00..4176.90 rows=16360 width=14) (actual time=0.008..11.197 rows=16683.00 loops=1)
+              Filter: (((listing_type)::text = 'SALE'::text) AND ((status)::text = 'ACTIVE'::text))
+              Rows Removed by Filter: 103377
+              Buffers: shared hit=2376
+        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.008..0.008 rows=10.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.002..0.005 rows=10.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 1
+          ->  Aggregate  (cost=2154.01..2154.02 rows=1 width=8) (actual time=2.490..2.490 rows=1.00 loops=1780)
+                Buffers: shared hit=1609120
+                ->  Seq Scan on enquiries e  (cost=0.00..2154.00 rows=2 width=0) (actual time=1.597..2.490 rows=0.97 loops=1780)
+                      Filter: (property_id = p.property_id)
+                      Rows Removed by Filter: 99999
+                      Buffers: shared hit=1609120
+        SubPlan 2
+          ->  Aggregate  (cost=2154.01..2154.02 rows=1 width=8) (actual time=2.486..2.486 rows=1.00 loops=1780)
+                Buffers: shared hit=1609120
+                ->  Seq Scan on enquiries e_1  (cost=0.00..2154.00 rows=2 width=8) (actual time=1.596..2.486 rows=0.97 loops=1780)
+                      Filter: (property_id = p.property_id)
+                      Rows Removed by Filter: 99999
+                      Buffers: shared hit=1609120
+Planning:
+  Buffers: shared hit=253
+Planning Time: 0.546 ms
+Execution Time: 8871.780 ms

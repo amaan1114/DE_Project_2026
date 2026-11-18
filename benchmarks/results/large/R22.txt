@@ -1,0 +1,27 @@
+=== R22 run 1 ===
+Limit  (cost=6840.30..11406.20 rows=25 width=34) (actual time=9.566..9.574 rows=25 loops=1)
+  Buffers: shared hit=1167 read=28
+  ->  Index Scan using idx_properties_posted_desc on properties  (cost=1.26..27371.95 rows=120060 width=34) (actual time=0.007..8.476 rows=50025 loops=1)
+        Buffers: shared hit=1167 read=28
+Planning:
+  Buffers: shared hit=240
+Planning Time: 0.343 ms
+Execution Time: 13.100 ms
+=== R22 run 2 ===
+Limit  (cost=6840.30..11406.20 rows=25 width=34) (actual time=10.506..10.511 rows=25 loops=1)
+  Buffers: shared hit=1195
+  ->  Index Scan using idx_properties_posted_desc on properties  (cost=1.26..27371.95 rows=120060 width=34) (actual time=0.008..9.190 rows=50025 loops=1)
+        Buffers: shared hit=1195
+Planning:
+  Buffers: shared hit=240
+Planning Time: 0.370 ms
+Execution Time: 14.600 ms
+=== R22 run 3 ===
+Limit  (cost=6840.30..11406.20 rows=25 width=34) (actual time=7.344..7.348 rows=25 loops=1)
+  Buffers: shared hit=1195
+  ->  Index Scan using idx_properties_posted_desc on properties  (cost=1.26..27371.95 rows=120060 width=34) (actual time=0.008..6.443 rows=50025 loops=1)
+        Buffers: shared hit=1195
+Planning:
+  Buffers: shared hit=240
+Planning Time: 0.389 ms
+Execution Time: 16.500 ms

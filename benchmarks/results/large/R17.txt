@@ -1,0 +1,78 @@
+=== R17 run 1 ===
+Sort  (cost=22853.16..38293.65 rows=16401 width=16) (actual time=20.871..21.048 rows=8940 loops=1)
+  Sort Key: p.posted_at
+  Sort Method: quicksort  Memory: 664kB
+  Buffers: shared hit=3273
+  ->  Hash Right Anti Join  (cost=11343.60..32347.65 rows=16401 width=16) (actual time=19.456..19.985 rows=8940 loops=1)
+        Hash Cond: (e.property_id = p.property_id)
+        Buffers: shared hit=3270
+        ->  Seq Scan on enquiries e  (cost=0.00..9520.00 rows=100000 width=4) (actual time=0.003..3.013 rows=100000 loops=1)
+              Buffers: shared hit=904
+        ->  Hash  (cost=10185.21..16975.35 rows=30891 width=16) (actual time=10.932..10.932 rows=20006 loops=1)
+              Buckets: 32768  Batches: 1  Memory Usage: 1194kB
+              Buffers: shared hit=2366
+              ->  Bitmap Heap Scan on properties p  (cost=1249.89..16975.35 rows=30891 width=16) (actual time=1.167..9.754 rows=20006 loops=1)
+                    Recheck Cond: ((status)::text = 'ACTIVE'::text)
+                    Filter: (posted_at < ('2026-07-01 00:00:00+05:30'::timestamp with time zone - '90 days'::interval))
+                    Rows Removed by Filter: 16813
+                    Heap Blocks: exact=2333
+                    Buffers: shared hit=2366
+                    ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..2044.55 rows=36882 width=0) (actual time=0.925..0.925 rows=36819 loops=1)
+                          Index Cond: ((status)::text = 'ACTIVE'::text)
+                          Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=408
+Planning Time: 1.419 ms
+Execution Time: 138.600 ms
+=== R17 run 2 ===
+Sort  (cost=22853.16..38293.65 rows=16401 width=16) (actual time=20.581..20.762 rows=8940 loops=1)
+  Sort Key: p.posted_at
+  Sort Method: quicksort  Memory: 664kB
+  Buffers: shared hit=3273
+  ->  Hash Right Anti Join  (cost=11343.60..32347.65 rows=16401 width=16) (actual time=19.055..19.612 rows=8940 loops=1)
+        Hash Cond: (e.property_id = p.property_id)
+        Buffers: shared hit=3270
+        ->  Seq Scan on enquiries e  (cost=0.00..9520.00 rows=100000 width=4) (actual time=0.002..2.806 rows=100000 loops=1)
+              Buffers: shared hit=904
+        ->  Hash  (cost=10185.21..16975.35 rows=30891 width=16) (actual time=10.944..10.944 rows=20006 loops=1)
+              Buckets: 32768  Batches: 1  Memory Usage: 1194kB
+              Buffers: shared hit=2366
+              ->  Bitmap Heap Scan on properties p  (cost=1249.89..16975.35 rows=30891 width=16) (actual time=0.620..9.835 rows=20006 loops=1)
+                    Recheck Cond: ((status)::text = 'ACTIVE'::text)
+                    Filter: (posted_at < ('2026-07-01 00:00:00+05:30'::timestamp with time zone - '90 days'::interval))
+                    Rows Removed by Filter: 16813
+                    Heap Blocks: exact=2333
+                    Buffers: shared hit=2366
+                    ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..2044.55 rows=36882 width=0) (actual time=0.476..0.476 rows=36819 loops=1)
+                          Index Cond: ((status)::text = 'ACTIVE'::text)
+                          Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=408
+Planning Time: 0.635 ms
+Execution Time: 148.300 ms
+=== R17 run 3 ===
+Sort  (cost=22853.16..38293.65 rows=16401 width=16) (actual time=20.716..20.907 rows=8940 loops=1)
+  Sort Key: p.posted_at
+  Sort Method: quicksort  Memory: 664kB
+  Buffers: shared hit=3273
+  ->  Hash Right Anti Join  (cost=11343.60..32347.65 rows=16401 width=16) (actual time=19.021..19.649 rows=8940 loops=1)
+        Hash Cond: (e.property_id = p.property_id)
+        Buffers: shared hit=3270
+        ->  Seq Scan on enquiries e  (cost=0.00..9520.00 rows=100000 width=4) (actual time=0.003..2.930 rows=100000 loops=1)
+              Buffers: shared hit=904
+        ->  Hash  (cost=10185.21..16975.35 rows=30891 width=16) (actual time=10.539..10.540 rows=20006 loops=1)
+              Buckets: 32768  Batches: 1  Memory Usage: 1194kB
+              Buffers: shared hit=2366
+              ->  Bitmap Heap Scan on properties p  (cost=1249.89..16975.35 rows=30891 width=16) (actual time=0.759..9.437 rows=20006 loops=1)
+                    Recheck Cond: ((status)::text = 'ACTIVE'::text)
+                    Filter: (posted_at < ('2026-07-01 00:00:00+05:30'::timestamp with time zone - '90 days'::interval))
+                    Rows Removed by Filter: 16813
+                    Heap Blocks: exact=2333
+                    Buffers: shared hit=2366
+                    ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..2044.55 rows=36882 width=0) (actual time=0.559..0.560 rows=36819 loops=1)
+                          Index Cond: ((status)::text = 'ACTIVE'::text)
+                          Buffers: shared hit=33
+Planning:
+  Buffers: shared hit=408
+Planning Time: 0.628 ms
+Execution Time: 161.100 ms

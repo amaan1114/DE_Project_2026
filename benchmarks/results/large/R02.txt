@@ -1,0 +1,90 @@
+=== R02 run 1 ===
+Limit  (cost=8853.39..14756.05 rows=30 width=55) (actual time=10.703..10.712 rows=30 loops=1)
+  Buffers: shared hit=2295
+  ->  Sort  (cost=8853.39..14759.20 rows=283 width=55) (actual time=10.701..10.704 rows=30 loops=1)
+        Sort Key: (round((p.price / (p.carpet_area_sqft)::numeric), 0))
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=2295
+        ->  Hash Join  (cost=685.38..14713.85 rows=283 width=55) (actual time=1.096..10.637 rows=80 loops=1)
+              Hash Cond: (p.locality_id = l.locality_id)
+              Buffers: shared hit=2292
+              ->  Bitmap Heap Scan on properties p  (cost=678.27..14652.70 rows=2828 width=18) (actual time=0.894..10.247 rows=1654 loops=1)
+                    Recheck Cond: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'SALE'::text))
+                    Filter: ((price < '12000000'::numeric) AND ((property_type)::text = 'APARTMENT'::text) AND (bhk = 3))
+                    Rows Removed by Filter: 15029
+                    Heap Blocks: exact=2275
+                    Buffers: shared hit=2291
+                    ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..1126.90 rows=16509 width=0) (actual time=0.607..0.607 rows=16683 loops=1)
+                          Index Cond: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'SALE'::text))
+                          Buffers: shared hit=16
+              ->  Hash  (cost=6.75..11.25 rows=10 width=13) (actual time=0.018..0.018 rows=10 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on localities l  (cost=0.00..11.25 rows=10 width=13) (actual time=0.008..0.012 rows=10 loops=1)
+                          Filter: (city_id = 6)
+                          Rows Removed by Filter: 90
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=406
+Planning Time: 1.515 ms
+Execution Time: 3.750 ms
+=== R02 run 2 ===
+Limit  (cost=8853.39..14756.05 rows=30 width=55) (actual time=12.128..12.142 rows=30 loops=1)
+  Buffers: shared hit=2295
+  ->  Sort  (cost=8853.39..14759.20 rows=283 width=55) (actual time=12.126..12.131 rows=30 loops=1)
+        Sort Key: (round((p.price / (p.carpet_area_sqft)::numeric), 0))
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=2295
+        ->  Hash Join  (cost=685.38..14713.85 rows=283 width=55) (actual time=1.495..12.053 rows=80 loops=1)
+              Hash Cond: (p.locality_id = l.locality_id)
+              Buffers: shared hit=2292
+              ->  Bitmap Heap Scan on properties p  (cost=678.27..14652.70 rows=2828 width=18) (actual time=1.424..11.821 rows=1654 loops=1)
+                    Recheck Cond: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'SALE'::text))
+                    Filter: ((price < '12000000'::numeric) AND ((property_type)::text = 'APARTMENT'::text) AND (bhk = 3))
+                    Rows Removed by Filter: 15029
+                    Heap Blocks: exact=2275
+                    Buffers: shared hit=2291
+                    ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..1126.90 rows=16509 width=0) (actual time=0.968..0.968 rows=16683 loops=1)
+                          Index Cond: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'SALE'::text))
+                          Buffers: shared hit=16
+              ->  Hash  (cost=6.75..11.25 rows=10 width=13) (actual time=0.034..0.035 rows=10 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on localities l  (cost=0.00..11.25 rows=10 width=13) (actual time=0.018..0.024 rows=10 loops=1)
+                          Filter: (city_id = 6)
+                          Rows Removed by Filter: 90
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=406
+Planning Time: 2.329 ms
+Execution Time: 4.150 ms
+=== R02 run 3 ===
+Limit  (cost=8853.39..14756.05 rows=30 width=55) (actual time=6.417..6.422 rows=30 loops=1)
+  Buffers: shared hit=2295
+  ->  Sort  (cost=8853.39..14759.20 rows=283 width=55) (actual time=6.415..6.417 rows=30 loops=1)
+        Sort Key: (round((p.price / (p.carpet_area_sqft)::numeric), 0))
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=2295
+        ->  Hash Join  (cost=685.38..14713.85 rows=283 width=55) (actual time=1.006..6.351 rows=80 loops=1)
+              Hash Cond: (p.locality_id = l.locality_id)
+              Buffers: shared hit=2292
+              ->  Bitmap Heap Scan on properties p  (cost=678.27..14652.70 rows=2828 width=18) (actual time=0.913..6.160 rows=1654 loops=1)
+                    Recheck Cond: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'SALE'::text))
+                    Filter: ((price < '12000000'::numeric) AND ((property_type)::text = 'APARTMENT'::text) AND (bhk = 3))
+                    Rows Removed by Filter: 15029
+                    Heap Blocks: exact=2275
+                    Buffers: shared hit=2291
+                    ->  Bitmap Index Scan on idx_properties_status_listing  (cost=0.00..1126.90 rows=16509 width=0) (actual time=0.656..0.656 rows=16683 loops=1)
+                          Index Cond: (((status)::text = 'ACTIVE'::text) AND ((listing_type)::text = 'SALE'::text))
+                          Buffers: shared hit=16
+              ->  Hash  (cost=6.75..11.25 rows=10 width=13) (actual time=0.053..0.053 rows=10 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on localities l  (cost=0.00..11.25 rows=10 width=13) (actual time=0.032..0.035 rows=10 loops=1)
+                          Filter: (city_id = 6)
+                          Rows Removed by Filter: 90
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=406
+Planning Time: 1.772 ms
+Execution Time: 4.620 ms

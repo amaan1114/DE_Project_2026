@@ -1,0 +1,63 @@
+=== R08 run 1 ===
+Sort  (cost=9303.09..15506.85 rows=133 width=48) (actual time=5.902..5.948 rows=559 loops=1)
+  Sort Key: (round(('100'::numeric * ('1'::numeric - (c.new_price / c.old_price))), 1)) DESC
+  Sort Method: quicksort  Memory: 48kB
+  Buffers: shared hit=3832 read=6
+  ->  Nested Loop  (cost=2.10..15481.70 rows=133 width=48) (actual time=0.637..5.556 rows=559 loops=1)
+        Buffers: shared hit=3829 read=6
+        ->  Index Scan using idx_pricechanges_changed on price_changes c  (cost=0.87..330.05 rows=432 width=16) (actual time=0.602..2.066 rows=658 loops=1)
+              Index Cond: ((changed_at >= '2026-06-01 00:00:00'::timestamp without time zone) AND (changed_at < '2026-07-01 00:00:00'::timestamp without time zone))
+              Filter: (new_price <= (old_price * 0.9))
+              Rows Removed by Filter: 639
+              Buffers: shared hit=1197 read=6
+        ->  Index Scan using properties_pkey on properties p  (cost=1.26..35.05 rows=1 width=4) (actual time=0.004..0.004 rows=1 loops=658)
+              Index Cond: (property_id = c.property_id)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 0
+              Buffers: shared hit=2632
+Planning:
+  Buffers: shared hit=397 read=1
+Planning Time: 2.706 ms
+Execution Time: 48.200 ms
+=== R08 run 2 ===
+Sort  (cost=9303.09..15506.85 rows=133 width=48) (actual time=4.424..4.452 rows=559 loops=1)
+  Sort Key: (round(('100'::numeric * ('1'::numeric - (c.new_price / c.old_price))), 1)) DESC
+  Sort Method: quicksort  Memory: 48kB
+  Buffers: shared hit=3838
+  ->  Nested Loop  (cost=2.10..15481.70 rows=133 width=48) (actual time=0.062..4.177 rows=559 loops=1)
+        Buffers: shared hit=3835
+        ->  Index Scan using idx_pricechanges_changed on price_changes c  (cost=0.87..330.05 rows=432 width=16) (actual time=0.026..0.976 rows=658 loops=1)
+              Index Cond: ((changed_at >= '2026-06-01 00:00:00'::timestamp without time zone) AND (changed_at < '2026-07-01 00:00:00'::timestamp without time zone))
+              Filter: (new_price <= (old_price * 0.9))
+              Rows Removed by Filter: 639
+              Buffers: shared hit=1203
+        ->  Index Scan using properties_pkey on properties p  (cost=1.26..35.05 rows=1 width=4) (actual time=0.004..0.004 rows=1 loops=658)
+              Index Cond: (property_id = c.property_id)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 0
+              Buffers: shared hit=2632
+Planning:
+  Buffers: shared hit=398
+Planning Time: 1.919 ms
+Execution Time: 52.140 ms
+=== R08 run 3 ===
+Sort  (cost=9303.09..15506.85 rows=133 width=48) (actual time=3.432..3.456 rows=559 loops=1)
+  Sort Key: (round(('100'::numeric * ('1'::numeric - (c.new_price / c.old_price))), 1)) DESC
+  Sort Method: quicksort  Memory: 48kB
+  Buffers: shared hit=3838
+  ->  Nested Loop  (cost=2.10..15481.70 rows=133 width=48) (actual time=0.053..3.238 rows=559 loops=1)
+        Buffers: shared hit=3835
+        ->  Index Scan using idx_pricechanges_changed on price_changes c  (cost=0.87..330.05 rows=432 width=16) (actual time=0.023..0.798 rows=658 loops=1)
+              Index Cond: ((changed_at >= '2026-06-01 00:00:00'::timestamp without time zone) AND (changed_at < '2026-07-01 00:00:00'::timestamp without time zone))
+              Filter: (new_price <= (old_price * 0.9))
+              Rows Removed by Filter: 639
+              Buffers: shared hit=1203
+        ->  Index Scan using properties_pkey on properties p  (cost=1.26..35.05 rows=1 width=4) (actual time=0.003..0.003 rows=1 loops=658)
+              Index Cond: (property_id = c.property_id)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 0
+              Buffers: shared hit=2632
+Planning:
+  Buffers: shared hit=398
+Planning Time: 1.798 ms
+Execution Time: 56.420 ms
